@@ -3,6 +3,7 @@ import argparse
 import time
 import paho.mqtt.publish as publish
 import threading
+import json
 
 topic = "sensor/pond-data"
 
@@ -58,10 +59,26 @@ def load_data_from_db(pond_id, limit, offset):
 
         for row in records:
             print(threading.current_thread().name, row)
+            data = {
+                "EntryId": int(row[0]),
+                "PondId": int(row[1]),
+                "CreatedAt": row[2].strftime("%Y-%m-%d %H:%M:%S"),
+                "Temperature_C": float(row[3]),
+                "pH": float(row[4]),
+                "DissolvedOxygen_g_mL": float(row[5]),
+                "Turbidity_ntu": int(row[6]),
+                "Ammonia_g_mL": float(row[7]),
+                "Nitrite_g_mL": float(row[8]),
+                "Population": int(row[9]),
+                "FishLength_cm": float(row[10]),
+                "FishWeight_g": float(row[11]),
+            }
+            json_data = json.dumps(data)
+
             try:
                 publish.single(
                     topic + "/" + str(pond_id),
-                    payload=str(row),
+                    payload=json_data,
                     hostname="localhost",
                     port=8883,
                     client_id="",
@@ -105,7 +122,7 @@ def start_sensors(pond_ids, limit, sleep):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--limit", type=int, default=10, help="Limit the number of records to fetch"
+        "--limit", type=int, default=5, help="Limit the number of records to fetch"
     )
     parser.add_argument(
         "--sleep", type=int, default=10, help="Sleep time in seconds between each fetch"

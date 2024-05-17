@@ -21,7 +21,7 @@
         public double DissolvedOxygen_g_mL { get; set; }
 
         [Required]
-        public double Turbidity_ntu { get; set; }
+        public int Turbidity_ntu { get; set; }
 
         [Required]
         public double Ammonia_g_mL { get; set; }
@@ -30,7 +30,7 @@
         public double Nitrite_g_mL { get; set; }
 
         [Required]
-        public double Population { get; set; }
+        public int Population { get; set; }
 
         [Required]
         public double FishLength_cm { get; set; }
