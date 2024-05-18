@@ -67,6 +67,15 @@ services:
     networks:
       - mynet
   
+  sensor-microservice:
+    image: sensor-microservice
+    container_name: sensor-microservice
+    networks:
+      - mynet
+    depends_on:
+      - postgres
+      - mosquitto
+  
 networks:
   mynet:
     driver: bridge

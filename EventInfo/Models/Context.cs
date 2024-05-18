@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DatabaseMaker.Models
+namespace EventInfo.Models
 {
     public class Context : DbContext
     {

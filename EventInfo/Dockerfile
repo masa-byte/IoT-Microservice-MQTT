@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["DatabaseMaker/DatabaseMaker.csproj", "DatabaseMaker/"]
-RUN dotnet restore "DatabaseMaker/DatabaseMaker.csproj"
+COPY ["EventInfo/EventInfo.csproj", "EventInfo/"]
+RUN dotnet restore "EventInfo/EventInfo.csproj"
 COPY . .
-WORKDIR "/src/DatabaseMaker"
-RUN dotnet build "DatabaseMaker.csproj" -c Release -o /app/build
+WORKDIR "/src/EventInfo"
+RUN dotnet build "EventInfo.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DatabaseMaker.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "EventInfo.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DatabaseMaker.dll"]
+ENTRYPOINT ["dotnet", "EventInfo.dll"]

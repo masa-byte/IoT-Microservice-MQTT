@@ -1,4 +1,4 @@
-﻿namespace DatabaseMaker.Models
+﻿namespace EventInfo.Models
 {
     public class PondData
     {
