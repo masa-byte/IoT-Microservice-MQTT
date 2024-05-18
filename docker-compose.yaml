@@ -67,6 +67,17 @@ services:
     networks:
       - mynet
   
+  analytics-microservice:
+    image: analytics-microservice
+    container_name: analytics-microservice
+    networks:
+      - mynet
+    depends_on:
+      - postgres
+      - manager
+      - ekuiper
+      - mosquitto
+  
   sensor-microservice:
     image: sensor-microservice
     container_name: sensor-microservice

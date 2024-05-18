@@ -65,7 +65,7 @@ def start_analytics():
     client.on_message = on_message
     client.on_publish = on_publish
 
-    client.connect("localhost", 8883, 60)
+    client.connect("mosquitto", 8883, 60)
 
     client.loop_forever()
 
