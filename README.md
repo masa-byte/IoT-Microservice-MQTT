@@ -8,10 +8,10 @@ This application is tested through clients like **Postman**, and **Insomnia** an
 <br>
 
 ### Idea
-The idea is to have 3 microservices that communicate with each other using MQTT, and one of them has REST for communication with the client.
+The idea is to have 3 microservices that communicate with each other using MQTT, and one of them has REST API for communication with clients.
 
 ### Architecture
-The first microservice was written in **Python** and it is acting as a sensor, which is reading the data from a database (simulating the way data would arrive in real-time) and sending that to a MQTT topic. The second microservice was written in **Python** as well and it is acting as an analytics service, which is collecting the data from sensor and is sending it to **eKuiper** for analysis, and then forwarding results to another MQTT topic. The last microservice is acting as an access point for clients, meaning it implements REST api and is subscribing to the topic with event info from the analytics service. The last microservice is written in **.NET Core**.
+The first microservice was written in **Python** and it is acting as a sensor, which is reading the data from a database (simulating the way data would arrive in real-time) and sending that to a MQTT topic. The second microservice was written in **Python** as well and it is acting as an analytics service, which is collecting the data from sensor and is sending it to **eKuiper** for analysis, and then forwarding results to another MQTT topic. The last microservice is acting as an access point for clients, meaning it implements REST API and is subscribing to the topic with event info from the analytics service. The last microservice is written in **.NET Core**.
 
 ### Data
 The database is **PostgreSQL**. The dataset used is https://www.kaggle.com/datasets/ogbuokiriblessing/sensor-based-aquaponics-fish-pond-datasets?select=IoTPond10.csv. The dataset is about the sensor data from an aquaponics fish ponds. The data is about the temperature, pH, oxygen level, etc. in the water. I have cleaned the data and added pond_id to the data, and when importing the data, entry_id will be overridden to keep consistency and unique keys. The data is stored in the database, and the second microservice is responsible for handling the data from the database.
