@@ -20,7 +20,7 @@ namespace EventInfo.Services
 
             mqttOptions = new MqttClientOptionsBuilder()
                 .WithClientId("EventInfo")
-                .WithTcpServer("localhost", 8883)
+                .WithTcpServer("mosquitto", 8883)
                 .WithCleanSession()
                 .Build();
 
