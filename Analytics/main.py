@@ -2,10 +2,12 @@ import paho.mqtt.client as paho
 import json
 import datetime
 
-sensor_topic = "sensor/pond-data"
-ekuiper_send_topic = "ekuiper/ponds-data"
-ekuiper_receive_topic = "ekuiper/ponds-data-result"
-analytics_topic = "analytics/ponds-data"
+sensor_topic = "sensor/pond-data"  # this topic is separated for each pond
+ekuiper_send_topic = "ekuiper/ponds-data"  # this topic is grouped for all ponds
+ekuiper_receive_topic = (
+    "ekuiper/ponds-data-result"  # this topic is grouped for all ponds
+)
+analytics_topic = "analytics/pond-data"  # this topic is separated for each pond
 
 
 def on_connect(client, userdata, flags, rc):
@@ -38,13 +40,16 @@ def on_message(client, userdata, msg):
 
             if "MaxpH" in dict_data:
                 if dict_data["MaxpH"] > 9:
-                    dict_data["EventType"] = "HighpHAlarm"
+                    dict_data["EventType"] = "HighPHAlarm"
                 elif dict_data["MaxpH"] < 5:
-                    dict_data["EventType"] = "LowpHAlarm"
+                    dict_data["EventType"] = "LowPHAlarm"
 
             json_data = json.dumps(dict_data)
             print(json_data)
-            client.publish(analytics_topic, payload=json_data, qos=1)
+            pond_id = dict_data["PondId"]
+            client.publish(
+                analytics_topic + "/" + str(pond_id), payload=json_data, qos=1
+            )
 
     else:
         print("Message received from an unknown topic:", msg.topic)

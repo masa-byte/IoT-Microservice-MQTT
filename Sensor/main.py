@@ -14,7 +14,7 @@ def get_pond_ids():
             database="postgres",
             user="postgres",
             password="postgres",
-            host="localhost",
+            host="postgres",
             port="5432",
         )
         cursor = connection.cursor()
@@ -43,7 +43,7 @@ def load_data_from_db(pond_id, limit, offset):
             database="postgres",
             user="postgres",
             password="postgres",
-            host="localhost",
+            host="postgres",
             port="5432",
         )
         cursor = connection.cursor()
@@ -79,7 +79,7 @@ def load_data_from_db(pond_id, limit, offset):
                 publish.single(
                     topic + "/" + str(pond_id),
                     payload=json_data,
-                    hostname="localhost",
+                    hostname="mosquitto",
                     port=8883,
                     client_id="",
                     keepalive=60,
@@ -134,5 +134,7 @@ if __name__ == "__main__":
     sleep = args.sleep
 
     pond_ids = get_pond_ids()
+
+    time.sleep(5)
 
     start_sensors(pond_ids, limit, sleep)
