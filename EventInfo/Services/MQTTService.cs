@@ -1,7 +1,6 @@
 ﻿using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Server;
-using System.Collections.Concurrent;
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
@@ -67,7 +66,7 @@ namespace EventInfo.Services
                         messageDict[element.Name] = element.Value.ToString();
                     }
                 }
-                
+
                 eventInfo.Id = QueueClass.Instance.Count() + 1;
 
                 try
