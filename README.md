@@ -27,18 +27,19 @@ It was written in **.NET Core** and **Python**, and uses **PostgreSQL** as the d
 3. Open the terminal in Visual Studio Code
 4. Inside of EventInfo, run the following command:
     - `dotnet ef database update`
-5. Run the import-data.py script to import the data into the database
-6. Run the following command:
+5. Run the following command:
     - `docker-compose up`
-7. Wait for the services to start
-8. To test the REST API, use Postman or Insomnia
+6. Wait for the services to start
+7. Run the import-data.py script to import the data into the database
+8. Sensor service needs to be restarted to start sending data to MQTT
+9. To test the REST API, use Postman or Insomnia
     - GET http://localhost:5117/messages
     - GET http://localhost:5117/messages/{id}
     - GET http://localhost:5117/messages/phAlerts
     - GET http://localhost:5117/messages/temperatureAlerts
-9. Database GUI is available on http://localhost:5050/ 
+10. Database GUI is available on http://localhost:5050/ 
     - Username: admin@gmail.com
     - Password: 123
-10. EKuiper GUI is available on http://localhost:9082/ 
+11. EKuiper GUI is available on http://localhost:9082/ 
     - Username: admin
     - Password: public
